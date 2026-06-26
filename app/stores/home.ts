@@ -4,6 +4,7 @@ import { useLocalStorage } from '@vueuse/core'
 const defaultPageSettings: HomePageSettings = {
   backgroundImage: '',
   searchEngineId: 'google',
+  dockEnabled: false,
 }
 
 const defaultSearchEngines: SearchEngine[] = [
@@ -82,6 +83,10 @@ export const useHomeStore = defineStore('home', () => {
     pageSettings.value.backgroundImage = url.trim()
   }
 
+  function setDockEnabled(enabled: boolean) {
+    pageSettings.value.dockEnabled = enabled
+  }
+
   function upsertShortcut(shortcut: HomeShortcut) {
     const index = shortcuts.value.findIndex((item: HomeShortcut) => item.id === shortcut.id)
     if (index >= 0) {
@@ -112,6 +117,7 @@ export const useHomeStore = defineStore('home', () => {
     monitorModules,
     setSearchEngine,
     setBackgroundImage,
+    setDockEnabled,
     upsertShortcut,
     removeShortcut,
     upsertMonitorModule,

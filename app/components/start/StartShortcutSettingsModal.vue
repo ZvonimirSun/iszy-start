@@ -15,7 +15,7 @@ const form = defineModel<HomeShortcut>('form', { required: true })
 </script>
 
 <template>
-  <USlideover v-model:open="open" title="常用站点">
+  <UModal v-model:open="open" title="常用站点" :ui="{ content: 'max-w-xl' }">
     <template #body>
       <div class="space-y-5">
         <div class="grid grid-cols-2 gap-2">
@@ -44,5 +44,5 @@ const form = defineModel<HomeShortcut>('form', { required: true })
         </UForm>
       </div>
     </template>
-  </USlideover>
+  </UModal>
 </template>

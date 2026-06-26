@@ -10,7 +10,7 @@ const form = defineModel<MonitorModule>('form', { required: true })
 </script>
 
 <template>
-  <USlideover v-model:open="open" title="监控模块">
+  <UModal v-model:open="open" title="监控模块" :ui="{ content: 'max-w-lg' }">
     <template #body>
       <UForm :state="form" class="space-y-4" @submit="emit('save')">
         <UFormField label="名称" name="title">
@@ -29,5 +29,5 @@ const form = defineModel<MonitorModule>('form', { required: true })
         <UButton type="submit" icon="i-lucide-save" label="保存" block />
       </UForm>
     </template>
-  </USlideover>
+  </UModal>
 </template>

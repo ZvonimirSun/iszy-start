@@ -11,6 +11,7 @@ export interface SearchEngine {
 export interface HomePageSettings {
   backgroundImage: string
   searchEngineId: string
+  dockEnabled: boolean
 }
 
 export interface HomeShortcut {

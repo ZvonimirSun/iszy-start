@@ -10,8 +10,10 @@ const query = ref('')
 const time = ref(formatClock())
 const searchActive = ref(false)
 const shortcutsOpen = ref(false)
+const pageSettingsOpen = ref(false)
 const shortcutSettingsOpen = ref(false)
 const monitorSettingsOpen = ref(false)
+const aboutOpen = ref(false)
 
 const shortcutForm = reactive<HomeShortcut>(createShortcutForm())
 const monitorForm = reactive<MonitorModule>(createMonitorForm())
@@ -137,6 +139,7 @@ function createMonitorForm(): MonitorModule {
       :time="time"
       :search-active="searchActive"
       :shortcuts-open="shortcutsOpen"
+      :dock-enabled="homeStore.pageSettings.dockEnabled"
       :shortcuts="homeStore.shortcuts"
       :logged="userStore.logged"
       :profile="userStore.profile"
@@ -148,7 +151,11 @@ function createMonitorForm(): MonitorModule {
       @close-shortcuts="shortcutsOpen = false"
       @open-shortcut="openShortcut"
       @edit-shortcut="editShortcut"
-      @open-settings="shortcutSettingsOpen = true"
+      @open-general-settings="pageSettingsOpen = true"
+      @open-search-settings="pageSettingsOpen = true"
+      @open-wallpaper-settings="pageSettingsOpen = true"
+      @open-shortcut-settings="shortcutSettingsOpen = true"
+      @open-about="aboutOpen = true"
     />
 
     <StartMonitorSection
@@ -157,7 +164,7 @@ function createMonitorForm(): MonitorModule {
       @add="editMonitor()"
     />
 
-    <StartShortcutSettingsSlideover
+    <StartShortcutSettingsModal
       v-model:open="shortcutSettingsOpen"
       v-model:form="shortcutForm"
       :shortcuts="homeStore.shortcuts"
@@ -165,10 +172,24 @@ function createMonitorForm(): MonitorModule {
       @save="saveShortcut"
     />
 
-    <StartMonitorSettingsSlideover
+    <StartPageSettingsModal
+      v-model:open="pageSettingsOpen"
+      v-model:settings="homeStore.pageSettings"
+      :search-engines="homeStore.searchEngines"
+    />
+
+    <StartMonitorSettingsModal
       v-model:open="monitorSettingsOpen"
       v-model:form="monitorForm"
       @save="saveMonitor"
     />
+
+    <UModal v-model:open="aboutOpen" title="关于 ISZY Home" :ui="{ content: 'max-w-md' }">
+      <template #body>
+        <p class="text-sm text-muted">
+          ISZY Home 是一个面向浏览器首页的个人起始页，后续会继续扩展搜索、常用站点、Dock、监控模块和个性化配置。
+        </p>
+      </template>
+    </UModal>
   </div>
 </template>
