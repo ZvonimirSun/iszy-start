@@ -60,7 +60,7 @@ const heroClass = computed(() => [
         </UTooltip>
       </div>
 
-      <div class="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center pt-[8dvh]">
+      <div class="mx-auto grid w-full max-w-3xl flex-1 grid-rows-[7rem_1fr] justify-items-center pt-[8dvh]">
         <button
           type="button"
           class="cursor-pointer text-6xl font-light leading-none text-white drop-shadow-xl transition focus:outline-none sm:text-7xl"
@@ -69,22 +69,24 @@ const heroClass = computed(() => [
           {{ time || '--:--' }}
         </button>
 
-        <StartSearchBox
-          v-show="!shortcutsOpen"
-          v-model="query"
-          :active="searchActive"
-          :search-engine="searchEngine"
-          @activate="emit('activateSearch')"
-          @deactivate="emit('deactivateSearch', $event)"
-          @search="emit('search')"
-        />
+        <div class="w-full">
+          <StartSearchBox
+            v-show="!shortcutsOpen"
+            v-model="query"
+            :active="searchActive"
+            :search-engine="searchEngine"
+            @activate="emit('activateSearch')"
+            @deactivate="emit('deactivateSearch', $event)"
+            @search="emit('search')"
+          />
 
-        <StartShortcutGrid
-          v-if="shortcutsOpen"
-          :shortcuts="shortcuts"
-          @open="emit('openShortcut', $event)"
-          @add="emit('editShortcut')"
-        />
+          <StartShortcutGrid
+            v-if="shortcutsOpen"
+            :shortcuts="shortcuts"
+            @open="emit('openShortcut', $event)"
+            @add="emit('editShortcut')"
+          />
+        </div>
       </div>
 
       <div v-if="logged" class="flex justify-center pb-4">
