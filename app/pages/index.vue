@@ -33,9 +33,17 @@ const monitorForm = reactive<MonitorModule>({
 })
 
 const enabledModules = computed(() => homeStore.monitorModules.filter(item => item.enabled))
+const backgroundClass = computed(() => [
+  searchFocused.value ? 'scale-105 blur-md' : '',
+])
 const heroClass = computed(() => [
-  shortcutsOpen.value ? 'backdrop-blur-md bg-black/45' : 'bg-black/32',
-  searchFocused.value ? 'search-mode' : '',
+  shortcutsOpen.value ? 'backdrop-blur-md bg-black/45' : '',
+  searchFocused.value ? 'backdrop-blur-sm bg-black/35' : 'bg-black/24',
+])
+const searchBoxClass = computed(() => [
+  searchFocused.value
+    ? 'max-w-xl bg-zinc-950 px-4 shadow-2xl shadow-black/30'
+    : 'max-w-24 bg-transparent px-0 shadow-none',
 ])
 
 let clockTimer: ReturnType<typeof setInterval> | undefined
@@ -144,12 +152,12 @@ function toneClass(tone: HomeShortcut['tone']) {
 </script>
 
 <template>
-  <div class="min-h-dvh bg-zinc-950 text-white">
+  <div class="bg-zinc-950 text-white" :class="userStore.logged ? 'min-h-dvh' : 'h-dvh overflow-hidden'">
     <section
       class="relative flex min-h-dvh overflow-hidden"
       :style="{ backgroundImage: `url(${backgroundImage})` }"
     >
-      <div class="absolute inset-0 bg-cover bg-center transition duration-500" :style="{ backgroundImage: `url(${backgroundImage})` }" />
+      <div class="absolute inset-0 bg-cover bg-center transition duration-500" :class="backgroundClass" :style="{ backgroundImage: `url(${backgroundImage})` }" />
       <div class="absolute inset-0 transition duration-300" :class="heroClass" @click.self="closeShortcuts" />
 
       <div class="relative z-10 flex min-h-dvh w-full flex-col px-5 py-6">
@@ -172,7 +180,7 @@ function toneClass(tone: HomeShortcut['tone']) {
         <div class="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center pt-[8dvh]">
           <button
             type="button"
-            class="text-6xl font-light leading-none text-white drop-shadow-xl transition hover:scale-[1.02] focus:outline-none sm:text-7xl"
+            class="text-6xl font-light leading-none text-white drop-shadow-xl transition focus:outline-none sm:text-7xl"
             @click.stop="toggleShortcuts"
           >
             {{ time || '--:--' }}
@@ -180,19 +188,26 @@ function toneClass(tone: HomeShortcut['tone']) {
 
           <form
             v-show="!shortcutsOpen"
-            class="mt-8 flex h-12 w-full max-w-xl items-center rounded-full bg-zinc-950/72 px-4 shadow-2xl shadow-black/25 ring-1 ring-white/10 transition"
-            :class="searchFocused ? 'scale-[1.03] bg-zinc-950/88 ring-2 ring-lime-300/80' : ''"
+            class="mt-8 flex h-12 w-full items-center rounded-full transition duration-300"
+            :class="searchBoxClass"
             @submit.prevent="search"
           >
-            <UIcon name="i-simple-icons-google" class="mr-3 size-4 text-zinc-300" />
+            <button
+              v-show="searchFocused"
+              type="button"
+              class="mr-3 flex size-8 shrink-0 items-center justify-center rounded-full text-zinc-300 transition hover:bg-white/10"
+              aria-label="切换搜索引擎"
+            >
+              <UIcon name="i-simple-icons-google" class="size-4" />
+            </button>
             <input
               v-model="query"
-              class="h-full min-w-0 flex-1 bg-transparent text-center text-sm text-white outline-none placeholder:text-zinc-300"
+              class="h-full min-w-0 flex-1 bg-transparent text-center text-sm text-white outline-none placeholder:text-white"
               placeholder="搜索"
               @focus="searchFocused = true"
               @blur="searchFocused = false"
             >
-            <button type="submit" class="ml-3 flex size-8 items-center justify-center rounded-full text-lime-300 transition hover:bg-white/10" aria-label="搜索">
+            <button v-show="searchFocused" type="submit" class="ml-3 flex size-8 shrink-0 items-center justify-center rounded-full text-lime-300 transition hover:bg-white/10" aria-label="搜索">
               <UIcon name="i-lucide-search" class="size-5" />
             </button>
           </form>
@@ -218,13 +233,13 @@ function toneClass(tone: HomeShortcut['tone']) {
           </div>
         </div>
 
-        <div class="flex justify-center pb-4">
+        <div v-if="userStore.logged" class="flex justify-center pb-4">
           <UButton to="#monitors" icon="i-lucide-chevron-down" color="neutral" variant="ghost" aria-label="监控模块" class="text-white/75" />
         </div>
       </div>
     </section>
 
-    <section id="monitors" class="min-h-dvh bg-zinc-950 px-5 py-10 text-white">
+    <section v-if="userStore.logged" id="monitors" class="min-h-dvh bg-zinc-950 px-5 py-10 text-white">
       <div class="mx-auto max-w-6xl">
         <div class="mb-8 flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -235,10 +250,10 @@ function toneClass(tone: HomeShortcut['tone']) {
               监控面板
             </h1>
           </div>
-          <UButton :to="userStore.logged ? undefined : '/login'" :icon="userStore.logged ? 'i-lucide-plus' : 'i-lucide-log-in'" :label="userStore.logged ? '添加模块' : '登录'" @click="userStore.logged && editMonitor()" />
+          <UButton icon="i-lucide-plus" label="添加模块" @click="editMonitor()" />
         </div>
 
-        <div v-if="userStore.logged" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <article v-for="module in enabledModules" :key="module.id" class="rounded-lg border border-white/10 bg-white/[0.06] p-5 shadow-xl shadow-black/20">
             <div class="flex items-start justify-between gap-3">
               <div>
@@ -263,13 +278,6 @@ function toneClass(tone: HomeShortcut['tone']) {
               {{ module.componentKey }}
             </div>
           </article>
-        </div>
-
-        <div v-else class="rounded-lg border border-white/10 bg-white/[0.06] p-8 text-center">
-          <UIcon name="i-lucide-lock" class="mx-auto size-8 text-lime-300" />
-          <p class="mt-3 text-sm text-zinc-300">
-            登录后展示个人接口监听和自定义监控模块。
-          </p>
         </div>
       </div>
     </section>
