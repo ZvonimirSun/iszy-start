@@ -1,5 +1,4 @@
 import type { HomePageSettings, HomeShortcut, MonitorModule, SearchEngine } from '#shared/types/home'
-import { useLocalStorage } from '@vueuse/core'
 
 const defaultPageSettings: HomePageSettings = {
   backgroundImage: '',
@@ -65,16 +64,16 @@ const defaultModules: MonitorModule[] = [
 ]
 
 export const useHomeStore = defineStore('home', () => {
-  const pageSettings = useLocalStorage<HomePageSettings>('iszy-home:page-settings', defaultPageSettings)
-  const searchEngines = ref<SearchEngine[]>(defaultSearchEngines)
-  const shortcuts = useLocalStorage<HomeShortcut[]>('iszy-home:shortcuts', defaultShortcuts)
-  const monitorModules = useLocalStorage<MonitorModule[]>('iszy-home:monitor-modules', defaultModules)
+  const pageSettings = ref<HomePageSettings>({ ...defaultPageSettings })
+  const searchEngines = defaultSearchEngines
+  const shortcuts = ref<HomeShortcut[]>([...defaultShortcuts])
+  const monitorModules = ref<MonitorModule[]>([...defaultModules])
   const selectedSearchEngine = computed<SearchEngine>(() => {
-    return searchEngines.value.find(item => item.id === pageSettings.value.searchEngineId) || fallbackSearchEngine
+    return searchEngines.find(item => item.id === pageSettings.value.searchEngineId) || fallbackSearchEngine
   })
 
   function setSearchEngine(id: string) {
-    if (searchEngines.value.some(item => item.id === id)) {
+    if (searchEngines.some(item => item.id === id)) {
       pageSettings.value.searchEngineId = id
     }
   }
@@ -122,4 +121,6 @@ export const useHomeStore = defineStore('home', () => {
     removeShortcut,
     upsertMonitorModule,
   }
+}, {
+  persist: true,
 })
