@@ -1,5 +1,18 @@
 export type ShortcutIconTone = 'blue' | 'green' | 'rose' | 'amber' | 'violet' | 'sky' | 'zinc'
 
+export interface SearchEngine {
+  id: string
+  label: string
+  icon: string
+  searchUrl: string
+  homeUrl: string
+}
+
+export interface HomePageSettings {
+  backgroundImage: string
+  searchEngineId: string
+}
+
 export interface HomeShortcut {
   id: string
   label: string
