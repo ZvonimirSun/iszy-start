@@ -91,7 +91,6 @@ function saveShortcut() {
 
 function deleteShortcut(shortcut: HomeShortcut) {
   homeStore.removeShortcut(shortcut.id)
-  toast.add({ title: '常用站点已删除', description: shortcut.label, color: 'success' })
 }
 
 function editMonitor(module?: MonitorModule) {
