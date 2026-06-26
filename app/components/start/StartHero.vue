@@ -47,9 +47,10 @@ const dockShortcuts = computed(() => props.shortcuts.slice(0, 12))
     <div class="absolute inset-0 bg-cover bg-center transition duration-500" :class="backgroundClass" :style="{ backgroundImage: `url(${backgroundImage})` }" />
     <div class="absolute inset-0 transition duration-300" :class="heroClass" @click.self="emit('closeShortcuts')" />
 
-    <div class="relative z-10 grid min-h-dvh w-full grid-rows-[auto_1fr_auto] px-5 py-6">
-      <div class="flex justify-end">
+    <div class="relative z-10 flex h-dvh w-full flex-col overflow-hidden px-5 py-6">
+      <div class="flex h-10 shrink-0 justify-end">
         <StartActionMenu
+          v-show="shortcutsOpen"
           :logged="logged"
           :profile="profile"
           @open-general-settings="emit('openGeneralSettings')"
@@ -60,8 +61,8 @@ const dockShortcuts = computed(() => props.shortcuts.slice(0, 12))
         />
       </div>
 
-      <div class="mx-auto flex w-full max-w-3xl flex-col items-center pt-[7dvh]">
-        <div class="flex items-start justify-center">
+      <div class="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center overflow-hidden">
+        <div class="flex shrink-0 items-start justify-center pt-[7dvh]">
           <button
             type="button"
             class="cursor-pointer text-6xl font-light leading-none text-white drop-shadow-xl transition focus:outline-none sm:text-7xl"
@@ -71,7 +72,7 @@ const dockShortcuts = computed(() => props.shortcuts.slice(0, 12))
           </button>
         </div>
 
-        <div class="min-h-[24rem] w-full">
+        <div class="flex min-h-0 w-full flex-1 justify-center">
           <StartSearchBox
             v-show="!shortcutsOpen"
             v-model="query"
@@ -85,13 +86,14 @@ const dockShortcuts = computed(() => props.shortcuts.slice(0, 12))
           <StartShortcutGrid
             v-if="shortcutsOpen"
             :shortcuts="shortcuts"
+            class="max-h-full"
             @open="emit('openShortcut', $event)"
             @add="emit('editShortcut')"
           />
         </div>
       </div>
 
-      <div class="min-h-14">
+      <div class="min-h-14 shrink-0">
         <StartDock
           v-if="dockEnabled"
           :shortcuts="dockShortcuts"
