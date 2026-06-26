@@ -7,7 +7,7 @@ const userStore = useUserStore()
 const toast = useToast()
 
 const query = ref('')
-const time = ref('')
+const time = ref(formatClock())
 const searchFocused = ref(false)
 const shortcutsOpen = ref(false)
 const settingsOpen = ref(false)
@@ -53,7 +53,11 @@ onBeforeUnmount(() => {
 })
 
 function updateClock() {
-  time.value = new Intl.DateTimeFormat('zh-CN', {
+  time.value = formatClock()
+}
+
+function formatClock() {
+  return new Intl.DateTimeFormat('zh-CN', {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
