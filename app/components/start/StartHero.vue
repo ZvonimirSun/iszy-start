@@ -72,7 +72,7 @@ const dockShortcuts = computed(() => props.shortcuts.slice(0, 12))
           </button>
         </div>
 
-        <div class="flex min-h-0 w-full flex-1 justify-center">
+        <div class="flex min-h-0 w-full flex-1 justify-center" @click.self="shortcutsOpen && emit('closeShortcuts')">
           <StartSearchBox
             v-show="!shortcutsOpen"
             v-model="query"
