@@ -24,7 +24,7 @@ function toneClass(tone: HomeShortcut['tone']) {
 </script>
 
 <template>
-  <div class="mt-10 grid w-full max-w-2xl grid-cols-3 gap-x-9 gap-y-7 sm:grid-cols-5">
+  <div class="mx-auto mt-10 grid w-full max-w-2xl grid-cols-3 gap-x-9 gap-y-7 sm:grid-cols-5">
     <button
       v-for="shortcut in shortcuts"
       :key="shortcut.id"

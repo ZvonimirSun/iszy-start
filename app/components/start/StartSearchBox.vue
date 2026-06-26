@@ -23,7 +23,7 @@ const searchBoxClass = computed(() => [
 
 <template>
   <form
-    class="mt-8 flex h-12 w-full items-center rounded-full transition duration-300"
+    class="mx-auto mt-8 flex h-12 w-full items-center rounded-full transition duration-300"
     :class="searchBoxClass"
     @submit.prevent="emit('search')"
     @click="emit('activate')"
