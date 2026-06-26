@@ -33,7 +33,7 @@ function toneClass(tone: HomeShortcut['tone']) {
         class="group pointer-events-auto flex min-w-0 flex-col items-center gap-3"
         @click.stop="emit('open', shortcut)"
       >
-        <span class="flex size-20 items-center justify-center rounded-2xl bg-zinc-950/82 shadow-xl ring-1 ring-white/10 transition group-hover:-translate-y-1 group-hover:bg-zinc-900">
+        <span class="flex size-20 items-center justify-center rounded-2xl bg-zinc-950/82 shadow-xl ring-1 ring-white/10 transition-colors group-hover:bg-zinc-900">
           <UIcon :name="shortcut.icon" class="size-7" :class="toneClass(shortcut.tone)" />
         </span>
         <span class="max-w-24 truncate text-sm font-medium text-white drop-shadow">{{ shortcut.label }}</span>

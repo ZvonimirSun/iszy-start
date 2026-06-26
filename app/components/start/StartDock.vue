@@ -17,7 +17,7 @@ const emit = defineEmits<{
         v-for="shortcut in shortcuts"
         :key="shortcut.id"
         type="button"
-        class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-zinc-900/90 text-white/80 transition hover:-translate-y-0.5 hover:text-white"
+        class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-zinc-900/90 text-white/80 transition-colors hover:bg-zinc-800 hover:text-white"
         :aria-label="shortcut.label"
         @click="emit('open', shortcut)"
       >
