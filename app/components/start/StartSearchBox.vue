@@ -33,7 +33,7 @@ const searchBoxClass = computed(() => [
     <button
       v-show="active"
       type="button"
-      class="mr-3 flex size-8 shrink-0 items-center justify-center rounded-full text-zinc-300 transition hover:bg-white/10"
+      class="mr-3 flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full text-zinc-300 transition hover:bg-white/10"
       aria-label="切换搜索引擎"
     >
       <UIcon :name="searchEngine.icon" class="size-4" />
@@ -43,7 +43,7 @@ const searchBoxClass = computed(() => [
       class="h-full min-w-0 flex-1 bg-transparent text-center text-sm text-white outline-none placeholder:text-white"
       placeholder="搜索"
     >
-    <button v-show="active" type="submit" class="ml-3 flex size-8 shrink-0 items-center justify-center rounded-full text-lime-300 transition hover:bg-white/10" aria-label="搜索">
+    <button v-show="active" type="submit" class="ml-3 flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full text-lime-300 transition hover:bg-white/10" aria-label="搜索">
       <UIcon name="i-lucide-search" class="size-5" />
     </button>
   </form>

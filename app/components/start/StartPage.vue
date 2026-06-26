@@ -103,10 +103,6 @@ function saveMonitor() {
   toast.add({ title: '监控模块已保存', color: 'success' })
 }
 
-function openShortcut(shortcut: HomeShortcut) {
-  window.open(shortcut.url, '_self')
-}
-
 function createShortcutForm(): HomeShortcut {
   return {
     id: crypto.randomUUID(),
@@ -149,7 +145,6 @@ function createMonitorForm(): MonitorModule {
       @search="search"
       @toggle-shortcuts="toggleShortcuts"
       @close-shortcuts="shortcutsOpen = false"
-      @open-shortcut="openShortcut"
       @edit-shortcut="editShortcut"
       @open-general-settings="pageSettingsOpen = true"
       @open-search-settings="pageSettingsOpen = true"

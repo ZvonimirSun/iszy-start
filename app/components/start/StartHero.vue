@@ -20,7 +20,6 @@ const emit = defineEmits<{
   search: []
   toggleShortcuts: []
   closeShortcuts: []
-  openShortcut: [shortcut: HomeShortcut]
   editShortcut: [shortcut?: HomeShortcut]
   openGeneralSettings: []
   openSearchSettings: []
@@ -87,7 +86,6 @@ const dockShortcuts = computed(() => props.shortcuts.slice(0, 12))
             v-if="shortcutsOpen"
             :shortcuts="shortcuts"
             class="max-h-full"
-            @open="emit('openShortcut', $event)"
             @add="emit('editShortcut')"
           />
         </div>
@@ -97,7 +95,6 @@ const dockShortcuts = computed(() => props.shortcuts.slice(0, 12))
         <StartDock
           v-if="dockEnabled"
           :shortcuts="dockShortcuts"
-          @open="emit('openShortcut', $event)"
         />
         <div v-else-if="logged" class="flex justify-center">
           <UButton to="#monitors" icon="i-lucide-chevron-down" color="neutral" variant="ghost" aria-label="监控模块" class="text-white/75" />
