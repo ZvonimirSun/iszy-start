@@ -61,7 +61,7 @@ const dockShortcuts = computed(() => props.shortcuts.slice(0, 12))
       </div>
 
       <div class="mx-auto flex w-full max-w-3xl flex-col items-center pt-[7dvh]">
-        <div class="flex h-28 items-start justify-center">
+        <div class="flex items-start justify-center">
           <button
             type="button"
             class="cursor-pointer text-6xl font-light leading-none text-white drop-shadow-xl transition focus:outline-none sm:text-7xl"
