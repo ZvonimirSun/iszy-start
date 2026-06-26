@@ -89,6 +89,11 @@ function saveShortcut() {
   toast.add({ title: '常用站点已保存', color: 'success' })
 }
 
+function deleteShortcut(shortcut: HomeShortcut) {
+  homeStore.removeShortcut(shortcut.id)
+  toast.add({ title: '常用站点已删除', description: shortcut.label, color: 'success' })
+}
+
 function editMonitor(module?: MonitorModule) {
   Object.assign(monitorForm, module ?? createMonitorForm())
   monitorSettingsOpen.value = true
@@ -146,6 +151,7 @@ function createMonitorForm(): MonitorModule {
       @toggle-shortcuts="toggleShortcuts"
       @close-shortcuts="shortcutsOpen = false"
       @edit-shortcut="editShortcut"
+      @delete-shortcut="deleteShortcut"
       @open-general-settings="pageSettingsOpen = true"
       @open-search-settings="pageSettingsOpen = true"
       @open-wallpaper-settings="pageSettingsOpen = true"

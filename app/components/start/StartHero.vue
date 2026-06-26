@@ -21,6 +21,7 @@ const emit = defineEmits<{
   toggleShortcuts: []
   closeShortcuts: []
   editShortcut: [shortcut?: HomeShortcut]
+  deleteShortcut: [shortcut: HomeShortcut]
   openGeneralSettings: []
   openSearchSettings: []
   openWallpaperSettings: []
@@ -87,6 +88,7 @@ const dockShortcuts = computed(() => props.shortcuts.slice(0, 12))
             :shortcuts="shortcuts"
             class="max-h-full"
             @add="emit('editShortcut')"
+            @delete="emit('deleteShortcut', $event)"
           />
         </div>
       </div>
