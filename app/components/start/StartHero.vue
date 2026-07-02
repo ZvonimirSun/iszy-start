@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type { PublicSimpleUser } from '#layers/iszy-nuxt-auth-layer/shared/types/auth'
 import type { HomeShortcut, SearchEngine } from '#shared/types/home'
-import type { PublicSimpleUser } from '#shared/types/user'
 
 const props = defineProps<{
   backgroundImage: string

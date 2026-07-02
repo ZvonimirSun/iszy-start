@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
-import type { PublicSimpleUser } from '#shared/types/user'
+import type { PublicSimpleUser } from '#layers/iszy-nuxt-auth-layer/shared/types/auth'
 
 const props = defineProps<{
   logged: boolean

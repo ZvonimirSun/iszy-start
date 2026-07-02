@@ -1,6 +1,7 @@
 allowBuilds:
   '@parcel/watcher': false
   '@tailwindcss/oxide': false
+  '@zvonimirsun/iszy-nuxt-auth-layer': false
   esbuild: false
   unrs-resolver: false
   vue-demi: false
