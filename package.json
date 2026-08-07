@@ -23,7 +23,7 @@
     "@zvonimirsun/pinia-plugin-persistedstate": "^1.1.2",
     "ioredis": "^5.11.1",
     "ms": "^2.1.3",
-    "nuxt": "^4.4.8",
+    "nuxt": "^4.5.1",
     "ofetch": "^1.5.1",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.3.1",
